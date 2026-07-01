@@ -32,6 +32,19 @@ def main() -> None:
     for needle in ["## Hard Gates", "## Reference Routing", "## Verification"]:
         if needle not in skill:
             fail(f"missing {needle}")
+    for needle in ["internal review", "three consecutive", "logical consistency"]:
+        if needle not in skill:
+            fail(f"missing stage-gate control: {needle}")
+
+    pattern = (root / "references/stage-package-pattern.md").read_text(encoding="utf-8")
+    for needle in ["Internal review:", "pass_count=3"]:
+        if needle not in pattern:
+            fail(f"stage-package-pattern missing {needle}")
+
+    gates = (root / "references/final-quality-gates.md").read_text(encoding="utf-8")
+    for needle in ["internal review", "logic, contradictions, and causal order", "pass_count=3"]:
+        if needle not in gates:
+            fail(f"final-quality-gates missing {needle}")
 
     meta = (root / "agents/openai.yaml").read_text(encoding="utf-8")
     if "$stage-gated-plan-builder" not in meta:

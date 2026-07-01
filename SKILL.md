@@ -20,9 +20,12 @@ Prefer the smallest package that prevents mis-execution. Do not create a multi-s
 - Read existing `AGENTS.md`, `README.md`, current indexes, and nearest project instructions before drafting or editing a plan.
 - Define the active branch/worktree/version and the archive/historical boundary in the index.
 - Every stage must have a gate, owner scope, likely touched files, required artifacts, verification commands, PASS/BLOCKED criteria, and stop/debug behavior.
+- Each stage file must include an internal review for scope, prerequisites, artifacts, verification, and failure handling before the next stage is drafted.
+- After all stage files are drafted, review logical consistency, contradictions, and causal order across the index, stages, and contracts.
 - Put shared rules in the index or contracts, not repeated prose inside every stage file.
 - Separate contract/spec files from stage plans when metrics, scenarios, rewards, interfaces, schemas, or statistical rules must stay stable.
 - Do not authorize implementation, training, destructive cleanup, commit, or push from a docs plan unless the user explicitly asks.
+- If commit or push is explicitly authorized, run the same smoke check set three consecutive times before Git submission and record the commands plus pass count.
 - Do not claim scientific, performance, fairness, safety, or feasibility conclusions that the gates do not support.
 
 ## Reference Routing
@@ -41,11 +44,12 @@ Prefer the smallest package that prevents mis-execution. Do not create a multi-s
 2. **Freeze routing:** Name active branch/worktree/version, forbidden targets, archive boundary, and reading order.
 3. **Define causal order:** Sort stages by dependency, not topic preference. Contracts and plumbing precede smoke; smoke precedes pilot; pilot precedes formal runs.
 4. **Write the index first:** It is the source of truth for branch mapping, stage order, hard gates, and claim boundaries.
-5. **Write short stage files:** One objective, likely touched files, required tests, required artifacts, PASS/BLOCKED criteria, and debug rule.
+5. **Write short stage files:** One objective, likely touched files, required tests, required artifacts, PASS/BLOCKED criteria, debug rule, and internal review.
 6. **Write contract/spec files:** Freeze metrics, scenarios, schemas, reward/cost semantics, statistical analysis, or interface contracts.
-7. **Add gate records:** Each scientific gate states claim, scope, metric, tolerance, observable class, verdict, artifacts, allowed next actions, and blocked next actions.
-8. **Audit before handoff:** Check for duplicate/conflicting entrypoints, stale version labels, missing gates, and unsupported claims.
-9. **Capture lessons:** When the plan came from a difficult conversation or failed long run, write the reusable lessons into the package or prompt, not just the abstract structure.
+7. **Check package consistency:** Verify stage logic, contradictions, and causal dependencies across the index, stages, and contracts.
+8. **Add gate records:** Each scientific gate states claim, scope, metric, tolerance, observable class, verdict, artifacts, allowed next actions, and blocked next actions.
+9. **Audit before handoff:** Check for duplicate/conflicting entrypoints, stale version labels, missing gates, unsupported claims, and three-pass smoke evidence when Git submission is requested.
+10. **Capture lessons:** When the plan came from a difficult conversation or failed long run, write the reusable lessons into the package or prompt, not just the abstract structure.
 
 ## Output Shape
 

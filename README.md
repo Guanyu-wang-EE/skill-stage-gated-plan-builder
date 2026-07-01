@@ -51,8 +51,11 @@ The intended output shape is:
 - Do not create a staged package when one checklist is enough.
 - The index is the source of truth for branch/worktree/version, stage order, hard gates, and claim boundaries.
 - Stage files stay short: objective, touched files, checks, artifacts, PASS/BLOCKED criteria, and debug rule.
+- Each stage file must include an internal review before the next stage is drafted.
+- The finished stage set must pass a logic, contradiction, and causal-order consistency review.
 - Contracts/specs freeze metrics, scenarios, rewards, interfaces, schemas, or statistical rules before execution.
 - A docs plan must not authorize implementation, training, cleanup, commit, or push unless the user explicitly asks.
+- Authorized Git submission requires the same smoke check set to pass three consecutive times.
 
 ## Resource Index
 

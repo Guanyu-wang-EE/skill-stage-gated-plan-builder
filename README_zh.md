@@ -51,8 +51,11 @@
 - 一个 checklist 足够时，不创建 staged package。
 - index 是 branch/worktree/version、stage order、hard gates 与 claim boundaries 的唯一来源。
 - stage 文件保持短：objective、touched files、checks、artifacts、PASS/BLOCKED criteria 与 debug rule。
+- 每个 stage 文件必须在起草下一个 stage 前完成内部审查。
+- 整套 stage 完成后必须审查逻辑一致性、矛盾性与因果顺序。
 - contracts/specs 在执行前冻结 metrics、scenarios、rewards、interfaces、schemas 或 statistical rules。
 - docs plan 不得授权 implementation、training、cleanup、commit 或 push，除非用户明确要求。
+- 若已授权 Git 提交，同一组 smoke checks 必须连续通过三次。
 
 ## 资源索引
 

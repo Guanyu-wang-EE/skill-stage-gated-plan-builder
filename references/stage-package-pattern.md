@@ -39,9 +39,12 @@ PASS criteria:
 BLOCKED criteria:
 Five-cycle debug rule:
 Forbidden shortcuts:
+Internal review:
 ```
 
 Stage files may repeat only the rules needed for safe execution when an agent opens that file alone. Put broad shared policy in `00_INDEX.md`.
+
+`Internal review` must answer: scope is bounded; prerequisites exist or are blocked; artifacts and checks are named; PASS/BLOCKED criteria are testable; no downstream stage is silently authorized.
 
 ## Contract/Spec Files
 
@@ -107,6 +110,7 @@ Hard gates:
 - Do not start downstream work before prerequisite gates PASS.
 - Do not change locked scientific semantics without explicit approval.
 - On failure, run up to five distinct-hypothesis debug cycles, then mark BLOCKED with evidence.
+- Before authorized commit/push, run the same smoke check set three consecutive times and record pass_count=3.
 
 Artifacts:
 Write live CSV/JSONL/stdout/checkpoints/TensorBoard for long runs.
@@ -123,3 +127,4 @@ Do not average failed or infeasible runs into performance means.
 - Gates that say "works" without claim, metric, tolerance, and artifacts.
 - Long training before contract/plumbing/smoke gates.
 - Manuscript claims stronger than the evidence package.
+- Git submission after only one smoke pass when three were required.
