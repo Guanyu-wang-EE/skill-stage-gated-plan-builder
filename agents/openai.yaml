@@ -1,0 +1,7 @@
+interface:
+  display_name: "Stage-Gated Plan Builder"
+  short_description: "Build gated multi-stage plan packages."
+  default_prompt: "Use $stage-gated-plan-builder to create a compact staged plan package with gates, contracts, stop rules, and validation."
+
+policy:
+  allow_implicit_invocation: true
