@@ -16,6 +16,7 @@ Use a stage package when the work has irreversible order, scientific claims, lon
 - dependency matrix;
 - global hard gates;
 - claim boundaries;
+- links to `PLAN_CRITIC_REVIEW.md` and `LONG_GOAL_PROMPT.md` when they exist;
 - debug and stop rules;
 - reproducibility/artifact rules;
 - final verification commands.
@@ -90,9 +91,27 @@ NOT RUN
 
 Diagnostic-only failures do not fail the whole plan unless they affect learning signal, safety semantics, evaluation validity, or a locked claim.
 
+## Plan Critic Review File
+
+For nontrivial packages, create `PLAN_CRITIC_REVIEW.md` after drafting the index, stages, and contracts. Keep it short and evidence-bound:
+
+```text
+# Plan Critic Review
+
+Verdict:
+Completeness check:
+Logic check:
+Contradiction check:
+Causal-order check:
+Risk check:
+Smallest required patch:
+```
+
+The critic pass must name evidence paths instead of saying "looks good." It should verify active worktree/remote, current-vs-archive boundary, stage gates, contract separation, PASS/BLOCKED criteria, unsupported-claim boundaries, and downstream-blocking logic.
+
 ## Long-Goal Prompt Skeleton
 
-Use this when handing the package to another agent:
+Write this as `LONG_GOAL_PROMPT.md` when handing the package to another agent or starting an unattended run:
 
 ```text
 Start an unattended long-goal run in <worktree>.
@@ -121,6 +140,8 @@ Do not average failed or infeasible runs into performance means.
 ## Anti-Patterns
 
 - A long plan with no index.
+- A nontrivial plan with no separate critic review.
+- A handoff that relies on a conversation instead of `LONG_GOAL_PROMPT.md`.
 - Stage files that restate the same policy paragraphs.
 - Metrics defined only in prose, not in a contract/spec.
 - Old documents left in root as current-looking entrypoints.

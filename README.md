@@ -2,7 +2,7 @@
 
 <p align="right"><strong>English</strong> | <a href="README_zh.md">简体中文</a></p>
 
-Create compact, execution-ready multi-stage planning packages with explicit gates, contracts, stop rules, and validation.
+Create compact, execution-ready multi-stage planning packages with explicit gates, contracts, critic review, long-goal handoff prompts, stop rules, and validation.
 
 This repository is the Git-backed source mirror for the skill. Repository documentation belongs here; lean installed runtime copies should contain only files needed by the skill itself.
 
@@ -24,7 +24,7 @@ Use this skill when a project needs a staged plan package rather than a loose ch
 The intended output shape is:
 
 ```text
-1 index + n short stage plans + n contract/spec files + explicit gates
+1 index + n short stage plans + n contract/spec files + PLAN_CRITIC_REVIEW.md + LONG_GOAL_PROMPT.md when handed off + explicit gates
 ```
 
 ## Repository Map
@@ -44,7 +44,8 @@ The intended output shape is:
 2. Load only the routed reference for the task.
 3. Prefer a checklist when the work is narrow enough.
 4. If a staged package is justified, write the index first, then stage plans, then contracts/specs.
-5. Before handoff, run the final gates and audit script.
+5. For nontrivial packages, write a separate critic review; for agent or unattended handoff, write the long-goal prompt.
+6. Before handoff, run the final gates and audit script.
 
 ## Core Contracts
 
@@ -53,6 +54,8 @@ The intended output shape is:
 - Stage files stay short: objective, touched files, checks, artifacts, PASS/BLOCKED criteria, and debug rule.
 - Each stage file must include an internal review before the next stage is drafted.
 - The finished stage set must pass a logic, contradiction, and causal-order consistency review.
+- Nontrivial packages must include [`PLAN_CRITIC_REVIEW.md`](references/stage-package-pattern.md#plan-critic-review-file) or an equivalent critic pass with verdict, evidence paths, risks, and smallest required patch.
+- Agent handoff or unattended execution packages must include `LONG_GOAL_PROMPT.md` with worktree, index, required reading order, first incomplete gate, hard gates, failure rule, and artifact expectations.
 - Contracts/specs freeze metrics, scenarios, rewards, interfaces, schemas, or statistical rules before execution.
 - A docs plan must not authorize implementation, training, cleanup, commit, or push unless the user explicitly asks.
 - Authorized Git submission requires the same smoke check set to pass three consecutive times.
@@ -63,7 +66,7 @@ The intended output shape is:
 
 | File | Role |
 |---|---|
-| [`stage-package-pattern.md`](references/stage-package-pattern.md) | Plan package layout, index template, stage template, contracts, long-goal prompt guidance |
+| [`stage-package-pattern.md`](references/stage-package-pattern.md) | Plan package layout, index template, stage template, contracts, critic review, and long-goal prompt guidance |
 | [`lessons-learned.md`](references/lessons-learned.md) | Reusable planning lessons from difficult handoffs and long-run cleanup |
 | [`final-quality-gates.md`](references/final-quality-gates.md) | Final readiness audit for staged plan packages |
 

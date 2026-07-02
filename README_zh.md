@@ -2,7 +2,7 @@
 
 <p align="right"><a href="README.md">English</a> | <strong>简体中文</strong></p>
 
-用于创建紧凑、可执行的多阶段计划包，包含明确的 gate、contract、stop rule 与验证路径。
+用于创建紧凑、可执行的多阶段计划包，包含明确的 gate、contract、critic review、long-goal handoff prompt、stop rule 与验证路径。
 
 本仓库是该技能的 Git 源镜像。仓库文档保留在这里；精简的安装运行副本只应包含技能本身执行所需文件。
 
@@ -24,7 +24,7 @@
 预期输出形态是：
 
 ```text
-1 index + n short stage plans + n contract/spec files + explicit gates
+1 index + n short stage plans + n contract/spec files + PLAN_CRITIC_REVIEW.md + handoff 时的 LONG_GOAL_PROMPT.md + explicit gates
 ```
 
 ## 仓库地图
@@ -44,7 +44,8 @@
 2. 只加载当前任务路由到的 reference。
 3. 若窄任务用 checklist 足够，不创建阶段计划包。
 4. 若确实需要阶段计划包，先写 index，再写 stage plans，最后写 contracts/specs。
-5. 交接前运行 final gates 与 audit script。
+5. 对非平凡计划包，单独写 critic review；对 agent 交接或无人值守执行，写 long-goal prompt。
+6. 交接前运行 final gates 与 audit script。
 
 ## 核心契约
 
@@ -53,6 +54,8 @@
 - stage 文件保持短：objective、touched files、checks、artifacts、PASS/BLOCKED criteria 与 debug rule。
 - 每个 stage 文件必须在起草下一个 stage 前完成内部审查。
 - 整套 stage 完成后必须审查逻辑一致性、矛盾性与因果顺序。
+- 非平凡计划包必须包含 [`PLAN_CRITIC_REVIEW.md`](references/stage-package-pattern.md#plan-critic-review-file)，或等价的 critic pass，写明 verdict、evidence paths、risks 与 smallest required patch。
+- agent 交接或无人值守执行计划包必须包含 `LONG_GOAL_PROMPT.md`，写明 worktree、index、required reading order、first incomplete gate、hard gates、failure rule 与 artifact expectations。
 - contracts/specs 在执行前冻结 metrics、scenarios、rewards、interfaces、schemas 或 statistical rules。
 - docs plan 不得授权 implementation、training、cleanup、commit 或 push，除非用户明确要求。
 - 若已授权 Git 提交，同一组 smoke checks 必须连续通过三次。
@@ -63,7 +66,7 @@
 
 | 文件 | 作用 |
 |---|---|
-| [`stage-package-pattern.md`](references/stage-package-pattern.md) | 计划包布局、index 模板、stage 模板、contracts 与 long-goal prompt 指引 |
+| [`stage-package-pattern.md`](references/stage-package-pattern.md) | 计划包布局、index 模板、stage 模板、contracts、critic review 与 long-goal prompt 指引 |
 | [`lessons-learned.md`](references/lessons-learned.md) | 从困难交接与长运行清理中提炼的可复用计划经验 |
 | [`final-quality-gates.md`](references/final-quality-gates.md) | 阶段计划包的最终 readiness audit |
 

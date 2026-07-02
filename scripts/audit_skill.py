@@ -32,17 +32,17 @@ def main() -> None:
     for needle in ["## Hard Gates", "## Reference Routing", "## Verification"]:
         if needle not in skill:
             fail(f"missing {needle}")
-    for needle in ["internal review", "three consecutive", "logical consistency"]:
+    for needle in ["internal review", "three consecutive", "logical consistency", "PLAN_CRITIC_REVIEW.md", "LONG_GOAL_PROMPT.md"]:
         if needle not in skill:
             fail(f"missing stage-gate control: {needle}")
 
     pattern = (root / "references/stage-package-pattern.md").read_text(encoding="utf-8")
-    for needle in ["Internal review:", "pass_count=3"]:
+    for needle in ["Internal review:", "Plan Critic Review File", "LONG_GOAL_PROMPT.md", "pass_count=3"]:
         if needle not in pattern:
             fail(f"stage-package-pattern missing {needle}")
 
     gates = (root / "references/final-quality-gates.md").read_text(encoding="utf-8")
-    for needle in ["internal review", "logic, contradictions, and causal order", "pass_count=3"]:
+    for needle in ["internal review", "PLAN_CRITIC_REVIEW.md", "LONG_GOAL_PROMPT.md", "logic, contradictions, and causal order", "pass_count=3"]:
         if needle not in gates:
             fail(f"final-quality-gates missing {needle}")
 

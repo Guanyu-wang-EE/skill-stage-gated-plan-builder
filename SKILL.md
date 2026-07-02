@@ -22,6 +22,8 @@ Prefer the smallest package that prevents mis-execution. Do not create a multi-s
 - Every stage must have a gate, owner scope, likely touched files, required artifacts, verification commands, PASS/BLOCKED criteria, and stop/debug behavior.
 - Each stage file must include an internal review for scope, prerequisites, artifacts, verification, and failure handling before the next stage is drafted.
 - After all stage files are drafted, review logical consistency, contradictions, and causal order across the index, stages, and contracts.
+- For nontrivial packages, write `PLAN_CRITIC_REVIEW.md` as a separate critic pass covering completeness, logic, contradictions, causal order, risks, and evidence paths.
+- For unattended execution or agent handoff, write `LONG_GOAL_PROMPT.md` that points to the index, required reading order, first incomplete gate, hard gates, failure rule, and artifacts.
 - Put shared rules in the index or contracts, not repeated prose inside every stage file.
 - Separate contract/spec files from stage plans when metrics, scenarios, rewards, interfaces, schemas, or statistical rules must stay stable.
 - Do not authorize implementation, training, destructive cleanup, commit, or push from a docs plan unless the user explicitly asks.
@@ -47,9 +49,10 @@ Prefer the smallest package that prevents mis-execution. Do not create a multi-s
 5. **Write short stage files:** One objective, likely touched files, required tests, required artifacts, PASS/BLOCKED criteria, debug rule, and internal review.
 6. **Write contract/spec files:** Freeze metrics, scenarios, schemas, reward/cost semantics, statistical analysis, or interface contracts.
 7. **Check package consistency:** Verify stage logic, contradictions, and causal dependencies across the index, stages, and contracts.
-8. **Add gate records:** Each scientific gate states claim, scope, metric, tolerance, observable class, verdict, artifacts, allowed next actions, and blocked next actions.
-9. **Audit before handoff:** Check for duplicate/conflicting entrypoints, stale version labels, missing gates, unsupported claims, and three-pass smoke evidence when Git submission is requested.
-10. **Capture lessons:** When the plan came from a difficult conversation or failed long run, write the reusable lessons into the package or prompt, not just the abstract structure.
+8. **Write critic and handoff files:** Add `PLAN_CRITIC_REVIEW.md`; add `LONG_GOAL_PROMPT.md` when another agent or a long run will consume the package.
+9. **Add gate records:** Each scientific gate states claim, scope, metric, tolerance, observable class, verdict, artifacts, allowed next actions, and blocked next actions.
+10. **Audit before handoff:** Check for duplicate/conflicting entrypoints, stale version labels, missing gates, unsupported claims, and three-pass smoke evidence when Git submission is requested.
+11. **Capture lessons:** When the plan came from a difficult conversation or failed long run, write the reusable lessons into the package or prompt, not just the abstract structure.
 
 ## Output Shape
 
@@ -58,6 +61,8 @@ Prefer this layout:
 ```text
 docs/<plan_name>/
   00_INDEX.md
+  PLAN_CRITIC_REVIEW.md
+  LONG_GOAL_PROMPT.md
   stage_0_<name>.md
   stage_1_<name>.md
   ...

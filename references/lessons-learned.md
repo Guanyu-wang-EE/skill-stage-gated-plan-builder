@@ -137,3 +137,9 @@ The target is not "many files". The target is enough structure that another agen
 - push to the wrong branch.
 
 Use the smallest index/stage/contract package that prevents those failures.
+
+## 13. Critic Review And Handoff Prompt Are First-Class Files
+
+For nontrivial packages, do not bury the final critique inside a stage paragraph. A separate `PLAN_CRITIC_REVIEW.md` makes completeness, logic, contradictions, causal order, risks, evidence paths, and smallest required patch visible at the package root.
+
+For unattended or multi-agent work, do not rely on chat history as the handoff. A separate `LONG_GOAL_PROMPT.md` should point to the worktree, index, reading order, first incomplete gate, hard gates, failure rule, and expected artifacts. Keep it causal and short; let the index and stage files carry the details.
