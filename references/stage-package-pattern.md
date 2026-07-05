@@ -91,6 +91,19 @@ NOT RUN
 
 Diagnostic-only failures do not fail the whole plan unless they affect learning signal, safety semantics, evaluation validity, or a locked claim.
 
+## Subagent Splitting When Requested
+
+Use subagents only when the user chooses delegation or parallel agent work. The main agent still owns `00_INDEX.md`, contracts, dependency order, gate advancement, and the final verdict.
+
+Good splits:
+
+- Explorer: read-only scan for legacy entrypoints, stale metrics, missing references, or independent evidence.
+- Critic: read-only review for `PLAN_CRITIC_REVIEW.md`; use fresh context and cite evidence paths or commands.
+- Worker: one isolated stage file or one contract/spec file with a disjoint write scope.
+- Executor: run the first incomplete gate from `LONG_GOAL_PROMPT.md`; stop at `FAIL` or `BLOCKED` and do not advance downstream.
+
+Every subagent prompt must name the package path, allowed writes, forbidden downstream stages, required evidence paths or commands, and return shape. Do not parallelize stages with prerequisite dependencies, and do not let one subagent change both locked contracts and downstream claims.
+
 ## Plan Critic Review File
 
 For nontrivial packages, create `PLAN_CRITIC_REVIEW.md` after drafting the index, stages, and contracts. Keep it short and evidence-bound:
